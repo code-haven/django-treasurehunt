@@ -5,8 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="{{static_url}}/treasurehunt/style.css">
 	</head>
 	<body>
-		{% block content %}
-		{% endblock %}
+		{{ level_details.title }}
 
 		<form action="/submit_answer/" method="post"> {% csrf_token %}
 			<label for="answer">Enter answer</label>

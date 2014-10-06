@@ -9,8 +9,8 @@ def render_level(request, level):
 	user_level = request.user.profile.level
 
 	if int(level) <= int(user_level):
-		level_content = Level.objects.filter(level=level)
-		return render(request, 'treasurehunt/level.html', )
+		level_object = Level.objects.filter(level=1)
+		return render(request, 'treasurehunt/level.html', {'level_details': level_object})
 
 
 def user_login(request):
@@ -39,3 +39,7 @@ def user_logout(request):
 	if user.is_authenticated():
 		logout(request)
 		return HttpResponseRedirect('/login/')
+
+
+def index(request):
+	render(request, 'index.html')

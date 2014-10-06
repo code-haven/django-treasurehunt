@@ -16,4 +16,4 @@ class Level(models.Model):
 	answer = models.CharField(max_length=140, blank=False)
 
 	def __unicode__(self):
-		return self.str(level)
+		return str(self.level)
