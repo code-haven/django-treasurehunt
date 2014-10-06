@@ -1,3 +1,6 @@
 from django.contrib import admin
+from treasurehunt.models import Level, UserProfile
 
-# Register your models here.
+
+admin.site.register(UserProfile)
+admin.site.register(Level)

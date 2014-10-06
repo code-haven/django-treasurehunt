@@ -9,7 +9,9 @@
 		{% endblock %}
 
 		<form action="/submit_answer/" method="post"> {% csrf_token %}
+			<label for="answer">Enter answer</label>
 			<input type="text" name="answer" value="">
+			<input type="submit">
 		</form>
 	</body>
 </html>
