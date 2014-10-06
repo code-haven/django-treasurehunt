@@ -12,7 +12,7 @@ class UserProfile(models.Model):
 class Level(models.Model):
 	level = models.IntegerField(blank=False)
 	title = models.CharField(max_length=140, blank=True)
-	image = models.ImageField(upload_to='media/levels', blank=False)
+	image = models.ImageField(upload_to='levels', blank=False)
 	answer = models.CharField(max_length=140, blank=False)
 
 	def __unicode__(self):

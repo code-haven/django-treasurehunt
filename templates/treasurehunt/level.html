@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		{{ level_details.title }}
+		<img src="{{ image_url }}" height="640" width="480">
 
 		<form action="/submit_answer/" method="post"> {% csrf_token %}
 			<label for="answer">Enter answer</label>

@@ -9,8 +9,9 @@ def render_level(request, level):
 	user_level = request.user.profile.level
 
 	if int(level) <= int(user_level):
-		level_object = Level.objects.filter(level=1)
-		return render(request, 'treasurehunt/level.html', {'level_details': level_object})
+		level_object = Level.objects.get(level=1)
+
+		return render(request, 'treasurehunt/level.html', {'image_url': level_object.image.url})
 
 
 def user_login(request):
