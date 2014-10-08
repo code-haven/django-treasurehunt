@@ -5,6 +5,7 @@ from django.conf import settings
 
 
 urlpatterns = patterns('',
+	url(r'^accounts/', include('accounts.urls')),
 	url(r'^treasurehunt/', include('treasurehunt.urls')),
     url(r'^admin/', include(admin.site.urls)),
 

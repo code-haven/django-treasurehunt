@@ -1,46 +1,39 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from treasurehunt.models import Level
-from django.core.context_processors import csrf
 
 
 def render_level(request, level):
-	user_level = request.user.profile.level
+	user = request.user.profile
+	user_level = int(user.level)
 
-	if int(level) <= int(user_level):
-		level_object = Level.objects.get(level=1)
+	level_object = Level.objects.get(level=level)
+	level = int(level)
 
-		return render(request, 'treasurehunt/level.html', {'image_url': level_object.image.url})
+	#Check if user has access to the current level
+	if level <= user_level:
+		if request.method == 'GET':
+			return render(request, 'treasurehunt/level.html', {'level': level_object})
 
+		elif request.method == 'POST':
+			answer = str(level_object.answer).lower()
+			user_answer = str(request.POST['answer']).lower()
 
-def user_login(request):
-	if request.method == 'GET':
-		protected_form = {}
-		form.update(csrf(request))
+			if answer == user_answer:
+				#Update the level of user only if he is passing the level for first time
+				if level == user_level:
+					user.level += 1
+					user.save(update_fields=['level'])
+				else:
+					pass
+				return HttpResponseRedirect('/treasurehunt/level/%s' % str(int(level) + 1))
 
-		return render(request, 'login.html', protected_form)
-
-	elif request.method == 'POST':
-		login_username = request.POST['username']
-		login_password = request.POST['password']
-
-		user = authenticate(username=login_username, password=login_password)
-
-		if user is not None:
-			login(request, user)
-			return HttpResponseRedirect('/login_success/')
-		else:
-			return HttpResponseRedirect('/login_failure/')
-
-
-def user_logout(request):
-	user = request.user
-
-	if user.is_authenticated():
-		logout(request)
-		return HttpResponseRedirect('/login/')
-
+			else:
+				return HttpResponseRedirect('/treasurehunt/level/%s' % level)
+				
+	#User does not have access
+	else:
+		return render(request, 'treasurehunt/no.html')
 
 def index(request):
 	render(request, 'index.html')
