@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Level | Django-Treasurehunt</title>
-		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-	</head>
-	<body>
-		{{ level_details.title }}
-		<img src="{{ level.image.url }}" height="640" width="480">
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div class="well level">
+	<h3 align="center">Level {{level.level}} </h3><br>
+
+		<img src="{{ level.image.url }}" class="img-responsive img-rounded">
+		<br><br>
 
 		<form method="post"> {% csrf_token %}
-			<label for="answer">Enter answer</label>
-			<input type="text" name="answer" value="">
-			<input type="submit">
+			<div class="form-group">
+			   <input type="text" class="form-control" name="answer" placeholder="Answer">
+			 </div>
+			<input type="submit" class="btn btn-primary">
 		</form>
-	</body>
-</html>
+	</div>
+{% endblock %}
